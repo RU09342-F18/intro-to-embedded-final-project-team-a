@@ -1,7 +1,7 @@
 # Final Project: Team A
 ## Details
  * By Colby Clark and Scott Wood
- * Created: ?
+ * Created: 8 December 2018?
  * Last Updated: 14 December 2018 
 ## Purpose
 
