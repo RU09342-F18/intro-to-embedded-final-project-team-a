@@ -1,0 +1,67 @@
+#include <msp430.h> 
+
+/**
+ * main.c
+ */
+
+float bitVoltage;
+float voltsPerBit = 3.3 / 1024;
+float Vo;
+float distance;
+
+
+char space = 32;
+
+int main(void)
+{
+   // disable watchdog timer
+   WDTCTL = WDTPW + WDTHOLD;        // watchdog timer stopped by enabling bit 7 (WDTHOLD) and using
+                                    // the password (WDTPW)
+
+
+   // Magic from TI
+   ADC10CTL0 = ADC10ON+MSC+ADC10SHT_3+ADC10IE; // Turn on ADC12, extend sampling time to avoid overflow of results
+   ADC10CTL1 = CONSEQ_3+ADC10DIV_7+INCH_0;       // Use sampling timer, repeated sequence
+   ADC10CTL0 |= ENC;                    // Enable conversions
+   ADC10CTL0 |= ADC10SC;                     // Start convn - software trigger
+
+   // enable ADC input
+   ADC10AE0 = BIT0;
+
+   // enable UART input/output
+   P1SEL |= BIT1 | BIT2;            // P1.1, P1.2 set to TXD, RXD
+   P1SEL2 |= BIT1 | BIT2;
+
+   // configure UART and set baud rate... (UCA1CTL1)/(UCA1BR0 + UCA1BR1 x 256) = baud rate
+   UCA0CTL1 |= UCSWRST;
+   UCA0CTL0 = 0;
+   UCA0CTL1 |= UCSSEL_2;            // set to use SMCLK (UCSSEL_2)
+   UCA0BR0 = 104;                   // set to 104
+   UCA0BR1 = 0;                     // set to 0
+   UCA0MCTL = UCBRS_2;              // set modulation pattern to high on bit 1 & 5
+                                    // enable USCI_A1 RX interrupt
+   UCA0CTL1 &= ~UCSWRST;            // initialize USCI
+
+   __bis_SR_register(GIE); // enter LPM0, enable interrupts
+   __no_operation();                // for debugger
+   while(1){}
+
+   return 0;
+}
+
+#pragma vector=ADC10_VECTOR
+__interrupt void ADC10ISR (void)
+{
+                                 // Vector  6:  ADC12IFG0
+    bitVoltage = ADC10MEM;
+    Vo = (bitVoltage * voltsPerBit);
+    distance = -36*Vo + 92.8;
+
+    UCA0TXBUF = (((int)(distance + 0.5))/10 + 48); // 0.5 is added for rounding and 48 ('0' in asic) converts to asic
+    __delay_cycles(500);
+    UCA0TXBUF = ((distance + 0.5) - (int)((distance + 0.5)/10)*10 + 48);
+    __delay_cycles(500);
+    UCA0TXBUF = space;
+    __delay_cycles(500);
+ }
+
