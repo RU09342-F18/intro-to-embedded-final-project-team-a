@@ -1,10 +1,10 @@
 /* LiquidCrystal Library - Blink
- 
+
  Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
- library works with all LCD displays that are compatible with the 
+ library works with all LCD displays that are compatible with the
  Hitachi HD44780 driver. There are many of them out there, and you
  can usually tell them by the 16-pin interface.
- 
+
  This sketch prints "Hello World!" to the LCD and makes the
  cursor block blink.
 
@@ -28,7 +28,7 @@
  by Tom Igoe
  modified 22 Nov 2010
  by Tom Igoe
- 
+
  This example code is in the public domain.
  http://www.arduino.cc/en/Tutorial/LiquidCrystal
 
@@ -180,27 +180,7 @@ byte blank[8] = {
   0b00000
 };
 
-byte c[8] = {
-  0b00000,
-  0b00000,
-  0b00000,
-  0b00000,
-  0b00111,
-  0b01000,
-  0b01000,
-  0b00111
-};
 
-byte m[8] = {
-  0b00000,
-  0b00000,
-  0b00000,
-  0b00000,
-  0b00000,
-  0b11111,
-  0b10101,
-  0b10101
-};
 
 void setup() {
 
@@ -230,24 +210,21 @@ void setup() {
   lcd.createChar(9, nine);
   lcd.createChar(10,heart);
   lcd.createChar(11,blank);
-  lcd.createChar(12,c);
-  lcd.createChar(13,m);
 
   lcd.clear();
 
   // set up the lcd's number of columns and rows:
   lcd.begin(16, 2);
 
-  // Print a message to the lcd.
+  // Print a message to the ;.
   lcd.print("      I");
   lcd.write(10);
   lcd.print("Arduino! ");
   lcd.setCursor(4, 1);
-  lcd.write(12);
-  lcd.setCursor(5, 1);
-  lcd.write(13);
+  lcd.print("cm");
   lcd.setCursor(0,1);
   lcd.write(11);
+  //lcd.setCursor()
 }
 
 void loop() {
