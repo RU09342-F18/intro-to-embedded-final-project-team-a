@@ -18,5 +18,5 @@
   
 ### Specs
 * The code is designed for the MSP430G2553 microprocessor
-  A 16x2 LCD Display was used
+* A 16x2 LCD Display was used
 
