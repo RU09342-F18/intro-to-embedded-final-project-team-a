@@ -1,7 +1,10 @@
 #include <msp430.h> 
 
 /**
- * main.c
+ * This code is written to be implemented on the MSP430G2553LP. This code utilizes the 10 bit ADC on the MSP430G2553LP such that
+ * the analog voltage measured from the PIR sensor generated a photodetector is stored and converted to a digital voltage 
+ * such that distance from the object is calculated in software with a linear approximated equation derived from 
+ * the PIR Sensor's datasheet and transmitted over UART to an offboard MSP430G2553.
  */
 
 float bitVoltage;
