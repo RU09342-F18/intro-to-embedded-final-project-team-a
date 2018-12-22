@@ -19,4 +19,5 @@
 ### Specs
 * The code is designed for the MSP430G2553 microprocessor
 * A 16x2 LCD Display was used
-* Derived equation to calculation distance can be found in the [datasheet](www.python-exemplary.com/download/GP2Y0A21YK.pdf)
+* Derived equation to calculation distance can be found in the [datasheet](https://www.sparkfun.com/datasheets/Components/GP2Y0A21YK.pdf
+)
