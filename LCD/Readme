@@ -1,0 +1,11 @@
+# Readme
+ 
+ The LCD  was implemented using a microcontroller that was sent distances in UART at a Baud rate of 9600. 
+ To simplify and speed up the design process, the microcontroller was programmed in Energia.
+ Characters were sent in ASIC to easily program the LCD. 
+ The microcontroller was configured to wait for character to be sent over UART.  
+ The distances sent were represented in ASIC. 
+ 
+ For more information about the key components of the rangefinder,
+  open the individual files on Github.
+  
