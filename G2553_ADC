@@ -5,7 +5,7 @@
  */
 
 float bitVoltage;
-float voltsPerBit = 3.3 / 1024;
+float voltsPerBit = 3.3 / 1024; // ADC Step Size calculation given 3.3 Vref, and 10 bit ADC
 float Vo;
 float distance;
 
@@ -53,10 +53,9 @@ int main(void)
 __interrupt void ADC10ISR (void)
 {
                                  // Vector  6:  ADC12IFG0
-    bitVoltage = ADC10MEM;
-    Vo = (bitVoltage * voltsPerBit);
-    distance = -36*Vo + 92.8;
-
+    bitVoltage = ADC10MEM; // analog voltage that is measured from sensor
+    Vo = (bitVoltage * voltsPerBit); // ADC Voltage conversion
+    distance = -36*Vo + 92.8; //Equation Derived from Voltage Characterization Graph found within Sensor's Datasheet, linear approximation
     UCA0TXBUF = (((int)(distance + 0.5))/10 + 48); // 0.5 is added for rounding and 48 ('0' in asic) converts to asic
     __delay_cycles(500);
     UCA0TXBUF = ((distance + 0.5) - (int)((distance + 0.5)/10)*10 + 48);
