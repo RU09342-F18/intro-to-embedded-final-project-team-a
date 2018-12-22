@@ -1,10 +1,10 @@
 # Final Project: Team A
 ## Details
  * By Colby Clark and Scott Wood
- * Created: 8 December 2018?
+ * Created: 8 December 2018
  * Last Updated: 14 December 2018 
 ## Purpose
-  To create an rangefinder based on the intensity of reflected infrared waves. 
+  To create a rangefinder based on the intensity of reflected infrared waves. 
   The calculated distance would be displayed on an LCD screen. 
 
 ## Implementation
